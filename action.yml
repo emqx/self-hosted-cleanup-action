@@ -6,6 +6,7 @@ branding:
 inputs:
   cleanup_docker:
     description: 'Delete all docker containers and volumes?'
+    type: boolean
     required: false
     default: false
 
@@ -17,7 +18,7 @@ runs:
       run: |
         find . -mindepth 1 -delete
     - name: Delete all docker containers and volumes
-      if: ${{ inputs.cleanup_docker }}
+      if: ${{ inputs.cleanup_docker == true }}
       shell: bash
       run: |
         docker rm -f $(docker ps -aq)
