@@ -3,6 +3,11 @@ description: 'Cleanup working directory and docker'
 branding:
   icon: delete
   color: red
+inputs:
+  cleanup_docker:
+    description: 'Delete all docker containers and volumes?'
+    required: false
+    default: false
 
 runs:
   using: "composite"
@@ -12,6 +17,7 @@ runs:
       run: |
         find . -mindepth 1 -delete
     - name: Delete all docker containers and volumes
+      if: cleanup_docker
       shell: bash
       run: |
         docker rm -f $(docker ps -aq)
