@@ -17,7 +17,7 @@ runs:
       run: |
         find . -mindepth 1 -delete
     - name: Delete all docker containers and volumes
-      if: cleanup_docker
+      if: ${{ inputs.cleanup_docker }}
       shell: bash
       run: |
         docker rm -f $(docker ps -aq)
